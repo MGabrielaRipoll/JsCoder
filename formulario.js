@@ -49,7 +49,7 @@ function validarContraseña() {
 }
 
 function VerificarUsuario() {
-    if (usuarios.find((u) => u.email === email)) {
+    if (usuarios.find((u) => u.email === document.fvalida.email.value)) {
         verificarContraseña();
     }   else {
         Toastify({
@@ -71,7 +71,7 @@ function VerificarUsuario() {
 }
 
 function verificarContraseña() {
-    if (usuarios.find((u=> u.contraseña === contraseña))) {
+    if (usuarios.find((u=> u.contraseña === document.fvalida.contraseña.value))) {
         Toastify({
             text: `BIENVENIDO, Disfrute nuestra tienda`,
             duration: 2000,
