@@ -1,3 +1,7 @@
+
+
+
+
 // creacion del carrito y su simil en storage...
 let carrito = [];
 carrito = (sessionStorage.getItem('carrito')) ? JSON.parse(sessionStorage.getItem('carrito')) : [];
