@@ -1,24 +1,19 @@
 let usuarios = [
     {id:1, email:"gabymaujw@gmail.com", contraseña:"pachy"},
 ];
-var email = document.getElementById('email').value;
-var contraseña = document.getElementById('contraseña').value;
+
 
 function validarEmail() {
     if (document.fvalida.email.value.length === 0) {
         Toastify({
             text: `Tiene que escribir su Email`,
             duration: 2000,
-            destination: "https://github.com/apvarun/toastify-js",
-            newWindow: true,
-            close: true,
-            gravity: "bottom", 
+            gravity: "top", 
             position: "center", 
             stopOnFocus: true, 
             style: {
             background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
             },
-            onClick: function(){} 
         }).showToast();
         document.fvalida.email.focus();
         return false;
@@ -31,16 +26,12 @@ function validarContraseña() {
         Toastify({
             text: `Tiene que escribir su Contraseña`,
             duration: 2000,
-            destination: "https://github.com/apvarun/toastify-js",
-            newWindow: true,
-            close: true,
-            gravity: "bottom", 
+            gravity: "top", 
             position: "center", 
             stopOnFocus: true, 
             style: {
             background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
             },
-            onClick: function(){} 
         }).showToast();
         document.fvalida.contraseña.focus();
         return false;
@@ -55,53 +46,52 @@ function VerificarUsuario() {
         Toastify({
             text: `Su usuario no se encuentra registrado, lo registraremos en este momento`,
             duration: 2000,
-            destination: "https://github.com/apvarun/toastify-js",
-            newWindow: true,
-            close: true,
-            gravity: "bottom", 
+            gravity: "top", 
             position: "center", 
             stopOnFocus: true, 
             style: {
             background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
             },
-            onClick: function(){} 
         }).showToast();
             newUsuario();
         }
 }
 
 function verificarContraseña() {
-    if (usuarios.find((u=> u.contraseña === document.fvalida.contraseña.value))) {
-        Toastify({
-            text: `BIENVENIDO, Disfrute nuestra tienda`,
-            duration: 2000,
-            destination: "https://github.com/apvarun/toastify-js",
-            newWindow: true,
-            close: true,
-            gravity: "bottom", 
-            position: "center", 
-            stopOnFocus: true, 
-            style: {
-            background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
-            },
-            onClick: function(){} 
-        }).showToast();
-    } else {
-        Toastify({
-            text: `Su contraseña es erronea, intente nuevamente`,
-            duration: 2000,
-            destination: "https://github.com/apvarun/toastify-js",
-            newWindow: true,
-            close: true,
-            gravity: "bottom", 
-            position: "center", 
-            stopOnFocus: true, 
-            style: {
-            background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
-            },
-            onClick: function(){} 
-        }).showToast();
-    }
+    let usuarioContraseña = false;
+    usuarios.forEach(usuario => {
+        if (usuario.contraseña === document.fvalida.contraseña.value && usuario.email === document.fvalida.email.value)
+            { usuarioContraseña = true;
+            }
+        })
+        if (usuarioContraseña) {
+            Toastify({
+                text: `BIENVENIDO, Disfrute nuestra tienda`,
+                duration: 2000,
+                gravity: "top", 
+                position: "center", 
+                stopOnFocus: true, 
+                style: {
+                background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
+                },
+            }).showToast();
+            let logueo = document.createElement("div");
+            logueo.textContent = "";
+            let contenedorFormulario = document.getElementsByClassName("contenedorFormulario")[0];
+            logueo.textContent =`Usted esta navegando bajo el usuario: ${document.fvalida.email.value}`;
+            contenedorFormulario.appendChild(logueo);
+        } else {
+            Toastify({
+                text: `Su contraseña es erronea, intente nuevamente`,
+                duration: 2000,
+                gravity: "top", 
+                position: "center", 
+                stopOnFocus: true, 
+                style: {
+                background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
+                },
+            }).showToast();
+        }
 }
 
 function newUsuario() {   
@@ -113,16 +103,12 @@ function newUsuario() {
     Toastify({
         text: `Registro realizado`,
         duration: 2000,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        close: true,
-        gravity: "bottom", 
+        gravity: "top", 
         position: "center", 
         stopOnFocus: true, 
         style: {
         background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
         },
-        onClick: function(){} 
     }).showToast();
 };
 

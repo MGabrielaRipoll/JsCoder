@@ -7,13 +7,18 @@
   body{
     background-color: gray;
   }
+  .contenedorFormulario{
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    align-items: initial;
+  }
   .formulario {
-    width: 300px;
     color: white;
     font-weight: bold;
     background-color: black;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items:center;
     justify-content:right;
   }
