@@ -26,6 +26,11 @@
     margin-right: 20px;
   }
 
+  .compra {
+    display: flex;
+    flex-direction: column;
+  }
+
   #tarjetasProductos {
     display: flex;
     justify-content: space-around;
@@ -106,7 +111,9 @@
     font-weight: 700;
     letter-spacing: 1px;
   }
-  
+  .card .contentBox h2{
+    color: white;
+  }
   .card .contentBox .buy {
     position: relative;
     top: 100px;
@@ -170,6 +177,17 @@
   font-size: 20px;
   font-weight: bold;
 }
+#quitar{
+  border-radius: 10px 10px 10px 10px;
+  border-color: 10px black;
+  width: 200px;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  background-color: orange;
+  font-size: 20px;
+  font-weight: bold;
+}
 .formasDePago{
   font-size: 30px;
   text-align: center;
@@ -195,4 +213,12 @@
   flex-direction: row;
   text-align: left;
   justify-content: space-evenly;
+}
+.carrito{
+  z-index: initial;
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  top: 100px;
+  right: 20px;
 }

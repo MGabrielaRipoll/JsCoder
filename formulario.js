@@ -57,6 +57,10 @@ function VerificarUsuario() {
         }
 }
 
+var logueo = document.createElement("div");
+var contenedorFormulario = document.getElementsByClassName("contenedorFormulario")[0];
+
+
 function verificarContraseña() {
     let usuarioContraseña = false;
     usuarios.forEach(usuario => {
@@ -75,11 +79,11 @@ function verificarContraseña() {
                 background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
                 },
             }).showToast();
-            let logueo = document.createElement("div");
             logueo.textContent = "";
-            let contenedorFormulario = document.getElementsByClassName("contenedorFormulario")[0];
             logueo.textContent =`Usted esta navegando bajo el usuario: ${document.fvalida.email.value}`;
             contenedorFormulario.appendChild(logueo);
+            document.fvalida.email.value="";
+            document.fvalida.contraseña.value="";
         } else {
             Toastify({
                 text: `Su contraseña es erronea, intente nuevamente`,
@@ -120,4 +124,3 @@ function validarFormulario() {
 
 let enviar = document.getElementById("enviar");
 enviar.addEventListener("click", validarFormulario);
-console.log(usuarios);

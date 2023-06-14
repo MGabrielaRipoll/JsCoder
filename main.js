@@ -6,11 +6,16 @@
 let carrito = [];
 carrito = (sessionStorage.getItem('carrito')) ? JSON.parse(sessionStorage.getItem('carrito')) : [];
 // creacion de los productos a comercializar y sus caracteristicas
-let  televisor = {id:1, nombre:"tv", caracteristicas:"TV 4K 60'", precio:125000, imagen:"./imagenes/tv.png"};
-let computadora = {id:2, nombre:"cpu", caracteristicas:"PC Gamer", precio:250000, imagen:"./imagenes/computadora.png"};
-let homeT = {id:3, nombre:"hthea", caracteristicas:"Home Theater", precio:115000, imagen:"./imagenes/homeT.jpg"};
-let consola  = {id:4, nombre:"consola", caracteristicas:"Play Station 5", precio:320000, imagen:"./imagenes/play5.webp"};
-let listaDeProductos = [televisor,computadora, homeT, consola];
+// let  televisor = {id:1, nombre:"tv", caracteristicas:"TV 4K 60'", precio:125000, cantidad:1, imagen:"./imagenes/tv.png"};
+// let computadora = {id:2, nombre:"cpu", caracteristicas:"PC Gamer", precio:250000, cantidad:1, imagen:"./imagenes/computadora.png"};
+// let homeT = {id:3, nombre:"hthea", caracteristicas:"Home Theater", precio:115000, cantidad:1, imagen:"./imagenes/homeT.jpg"};
+// let consola  = {id:4, nombre:"consola", caracteristicas:"Play Station 5", precio:320000, cantidad:1, imagen:"./imagenes/play5.webp"};
+let listaDeProductos = [
+    {id:1, nombre:"tv", caracteristicas:"TV 4K 60'", precio:125000, cantidad:1, imagen:"./imagenes/tv.png"},
+    {id:2, nombre:"cpu", caracteristicas:"PC Gamer", precio:250000, cantidad:1, imagen:"./imagenes/computadora.png"},
+    {id:3, nombre:"hthea", caracteristicas:"Home Theater", precio:115000, cantidad:1, imagen:"./imagenes/homeT.jpg"},
+    {id:4, nombre:"consola", caracteristicas:"Play Station 5", precio:320000, cantidad:1, imagen:"./imagenes/play5.webp"},
+];
 // traer el contenedor del index donde iran las tarjetas
 let tarjetasProductos = document.getElementById("tarjetasProductos");
 // crear cada tarjeta
@@ -25,7 +30,8 @@ const cargarProductos =() => {
         <div class="contentBox">
             <h3>${item.caracteristicas}</h3>
             <h2>${item.precio}</h2>
-            <a href="#" class="boton${item.id}" id="comprar">Comprar</a>
+            <a href="#" class="boton${item.id}" id="comprar">Agregar al Carrito</a>
+            <a href="#" class="botonRemover${item.id}" id="quitar">Quitar del Carrito</a>
         </div>
     </div>`;
     // cargar cada div al html
@@ -35,30 +41,87 @@ const cargarProductos =() => {
     boton[0].addEventListener("click", () => {
         agregarAlCarrito(item.id)
         });
+    // crear un evento que permite remover del carrito
+    let botonRemover = document.getElementsByClassName(`botonRemover${item.id}`);
+    botonRemover[0].addEventListener("click", () => {
+        quitarDelCarrito(item.id)
+        });
     });
 };
+
 
 // ejecuto para crear las tarjetas
 cargarProductos();
 
+
 // funcion para agregar produtos al carrito
 const agregarAlCarrito = (id) => {
-    const itemEncontrado = listaDeProductos.find((item) => item.id === id);
-    carrito.push(itemEncontrado);
+    const unoMas = carrito.find((item) => item.id === id);
+    if (unoMas) {
+        unoMas.cantidad = unoMas.cantidad + 1;
+    } else {
+        const itemEncontrado = listaDeProductos.find((item) => item.id === id);
+        carrito.push(itemEncontrado);
+        };
     sessionStorage.setItem("carrito", JSON.stringify(carrito));
+    Toastify({
+        text: `Producto agregado`,
+        duration: 2000,
+        gravity: "bottom", 
+        position: "right", 
+        stopOnFocus: true, 
+        style: {
+        background: "#ffce00",
+        color: "#191919",
+        },
+    }).showToast();
 };
+
+// funcion para quitar del carrito
+const quitarDelCarrito = (id) => {
+    const itemEncontrado = carrito.find((item) => item.id === id);
+    if (itemEncontrado) {
+        const index = carrito.indexOf(itemEncontrado);
+            if (index > -1) {
+                carrito.splice(index, 1);
+            }
+            sessionStorage.setItem("carrito", JSON.stringify(carrito));
+            Toastify({
+                text: `Producto eliminado`,
+                duration: 2000,
+                gravity: "bottom", 
+                position: "right", 
+                stopOnFocus: true, 
+                style: {
+                background: "#ffce00",
+                color: "#191919",
+                },
+            }).showToast();
+    } else {
+        Toastify({
+            text: `El producto que intentas eliminar no fue agregado al carrito previamente`,
+            duration: 2000,
+            gravity: "bottom", 
+            position: "right", 
+            stopOnFocus: true, 
+            style: {
+            background: "#ffce00",
+            color: "#191919",
+            },
+        }).showToast();
+    }
+    
+};
+
 
 // traer del html los contenedores donde realizaremos las opciones para finalizar la compra
 
-let finalizarCompra = document.getElementsByClassName("finalizarCompra")[0];
 let sectionCarrito = document.getElementsByClassName("sectionCarrito")[0];
 
-// crear un boton para indicar que ha finalizado la compra
-let botonFinDeCompra = document.createElement("button");
-botonFinDeCompra.className = "button";
-botonFinDeCompra.textContent = "Finalizar Compra";
-finalizarCompra.appendChild(botonFinDeCompra);
-botonFinDeCompra.addEventListener("click", mostrarTotalCarrito);
+// añadir al carrito la funcion de ver la compra
+let imagenCarrito = document.getElementsByClassName("carrito")[0];
+imagenCarrito.addEventListener("click", mostrarTotalCarrito);
+
 
 // funcion para gestionar la forma de pago. asignando eventos a los botones efectivo y tarjeta
 const medioDePago = (a) => {
@@ -83,17 +146,21 @@ const medioDePago = (a) => {
 
 
 // crear una funcion para mostrar lo que contiene el carrito y el total que suman las compras
+
 function mostrarTotalCarrito() {
     const total = calcularTotalCarrito();
     let finDeCompra = document.createElement("div");
     finDeCompra.textContent="";
     sectionCarrito.textContent="";
-    carrito.forEach(item => {
+    carrito.forEach((item) => {
     finDeCompra.innerHTML += ` 
         <div class="container text-center">
             <div class="row align-items-start listado">
                 <div class="col">
                     Producto: ${item.caracteristicas}
+                </div>
+                <div class="col">
+                    Cantidad: ${item.cantidad}
                 </div>
                 <div class="col">
                     Precio: ${item.precio}
@@ -123,6 +190,5 @@ function calcularTotalCarrito() {
     }
     return total;
 }
-
 
 
