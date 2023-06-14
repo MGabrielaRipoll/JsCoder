@@ -123,7 +123,7 @@ function validarFormulario() {
 }
 
 function cerrarSesion() {
-    alert("La sesion se cerro correctamente y su carrito se a borrado");
+    alert("La sesion se cerro correctamente y su carrito se ha borrado");
     logueo.textContent = "";
     carrito=[];
     sessionStorage.setItem("carrito", JSON.stringify(carrito));
