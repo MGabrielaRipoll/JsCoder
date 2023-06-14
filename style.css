@@ -138,7 +138,20 @@
     height: 200px;
     width: auto;
   }
-
+#enviar{
+  background-color: orangered;
+  border: #000000;
+  color: #000000;
+  font-weight: bold;
+  margin: 5px;
+}
+#salir{
+  background-color: orangered;
+  border: #000000;
+  color: #000000;
+  font-weight: bold;
+  margin: 5px;
+}
 .button {
   border-radius: 10px 10px 10px 10px;
   border-color: 10px black;
@@ -169,6 +182,7 @@
 #comprar{
   border-radius: 10px 10px 10px 10px;
   border-color: 10px black;
+  margin: 5px;
   width: 200px;
   color: black;
   text-align: center;
@@ -180,6 +194,7 @@
 #quitar{
   border-radius: 10px 10px 10px 10px;
   border-color: 10px black;
+  margin: 5px;
   width: 200px;
   color: black;
   text-align: center;
@@ -221,4 +236,7 @@
   position: fixed;
   top: 100px;
   right: 20px;
+}
+.carrito:hover {
+  cursor: pointer;
 }

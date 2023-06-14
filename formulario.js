@@ -53,7 +53,7 @@ function VerificarUsuario() {
             background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
             },
         }).showToast();
-            newUsuario();
+        newUsuario();
         }
 }
 
@@ -67,7 +67,7 @@ function verificarContraseña() {
         if (usuario.contraseña === document.fvalida.contraseña.value && usuario.email === document.fvalida.email.value)
             { usuarioContraseña = true;
             }
-        })
+    })
         if (usuarioContraseña) {
             Toastify({
                 text: `BIENVENIDO, Disfrute nuestra tienda`,
@@ -122,5 +122,14 @@ function validarFormulario() {
     }
 }
 
+function cerrarSesion() {
+    alert("La sesion se cerro correctamente y su carrito se a borrado");
+    logueo.textContent = "";
+    carrito=[];
+    sessionStorage.setItem("carrito", JSON.stringify(carrito));
+};
+
 let enviar = document.getElementById("enviar");
 enviar.addEventListener("click", validarFormulario);
+let salir = document.getElementById("salir");
+salir.addEventListener("click",cerrarSesion);
