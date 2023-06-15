@@ -203,6 +203,7 @@
   font-size: 20px;
   font-weight: bold;
 }
+
 .formasDePago{
   font-size: 30px;
   text-align: center;
@@ -234,8 +235,8 @@
   width: 100px;
   height: 100px;
   position: fixed;
-  top: 100px;
-  right: 10px;
+  top: 10px;
+  left: 10px;
 }
 .carrito:hover {
   cursor: pointer;
