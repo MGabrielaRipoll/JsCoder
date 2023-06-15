@@ -94,37 +94,40 @@ const agregarAlCarrito = (id) => {
 // funcion para quitar del carrito
 const quitarDelCarrito = (id) => {
     const itemEncontrado = carrito.find((item) => item.id === id);
-    if (itemEncontrado) {
-        const index = carrito.indexOf(itemEncontrado);
-            if (index > -1) {
-                carrito.splice(index, 1);
-            }
-            sessionStorage.setItem("carrito", JSON.stringify(carrito));
+    if (itemEncontrado.cantidad > 1) {
+        itemEncontrado.cantidad = itemEncontrado.cantidad - 1;
+    } else {
+        if (itemEncontrado) {
+            const index = carrito.indexOf(itemEncontrado);
+                if (index > -1) {
+                    carrito.splice(index, 1);
+                }
+                sessionStorage.setItem("carrito", JSON.stringify(carrito));
+                Toastify({
+                    text: `Producto eliminado`,
+                    duration: 2000,
+                    gravity: "bottom", 
+                    position: "right", 
+                    stopOnFocus: true, 
+                    style: {
+                    background: "#ff4500",
+                    color: "#191919",
+                    },
+                }).showToast();
+        } else {
             Toastify({
-                text: `Producto eliminado`,
+                text: `El producto que intentas eliminar no fue agregado al carrito previamente`,
                 duration: 2000,
                 gravity: "bottom", 
                 position: "right", 
                 stopOnFocus: true, 
                 style: {
-                background: "#ff4500",
+                background: "#ffce00",
                 color: "#191919",
                 },
             }).showToast();
-    } else {
-        Toastify({
-            text: `El producto que intentas eliminar no fue agregado al carrito previamente`,
-            duration: 2000,
-            gravity: "bottom", 
-            position: "right", 
-            stopOnFocus: true, 
-            style: {
-            background: "#ffce00",
-            color: "#191919",
-            },
-        }).showToast();
+        }
     }
-    
 };
 
 
