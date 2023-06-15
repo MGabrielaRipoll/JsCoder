@@ -139,7 +139,7 @@
     width: auto;
   }
 #enviar{
-  background-color: orangered;
+  background-color: #ff4500;
   border: #000000;
   color: #000000;
   font-weight: bold;
@@ -235,7 +235,7 @@
   height: 100px;
   position: fixed;
   top: 100px;
-  right: 20px;
+  right: 10px;
 }
 .carrito:hover {
   cursor: pointer;

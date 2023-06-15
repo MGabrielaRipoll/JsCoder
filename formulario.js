@@ -60,7 +60,7 @@ function VerificarUsuario() {
 var logueo = document.createElement("div");
 var contenedorFormulario = document.getElementsByClassName("contenedorFormulario")[0];
 
-
+var teLogueaste = false;
 function verificarContraseña() {
     let usuarioContraseña = false;
     usuarios.forEach(usuario => {
@@ -79,6 +79,7 @@ function verificarContraseña() {
                 background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
                 },
             }).showToast();
+            teLogueaste = true;
             logueo.textContent = "";
             logueo.textContent =`Usted esta navegando bajo el usuario: ${document.fvalida.email.value}`;
             contenedorFormulario.appendChild(logueo);
@@ -92,7 +93,7 @@ function verificarContraseña() {
                 position: "center", 
                 stopOnFocus: true, 
                 style: {
-                background: "linear-gradient(0deg, rgba(4,9,244,1) 0%, rgba(48,45,253,1) 100%)",
+                background: "#ff4500",
                 },
             }).showToast();
         }

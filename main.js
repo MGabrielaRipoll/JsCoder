@@ -56,25 +56,39 @@ cargarProductos();
 
 // funcion para agregar produtos al carrito
 const agregarAlCarrito = (id) => {
-    const unoMas = carrito.find((item) => item.id === id);
-    if (unoMas) {
-        unoMas.cantidad = unoMas.cantidad + 1;
+    if(teLogueaste) {
+        const unoMas = carrito.find((item) => item.id === id);
+        if (unoMas) {
+            unoMas.cantidad = unoMas.cantidad + 1;
+        } else {
+            const itemEncontrado = listaDeProductos.find((item) => item.id === id);
+            carrito.push(itemEncontrado);
+            };
+        sessionStorage.setItem("carrito", JSON.stringify(carrito));
+        Toastify({
+            text: `Producto agregado`,
+            duration: 2000,
+            gravity: "bottom", 
+            position: "right", 
+            stopOnFocus: true, 
+            style: {
+            background: "#ffce00",
+            color: "#191919",
+            },
+        }).showToast();
     } else {
-        const itemEncontrado = listaDeProductos.find((item) => item.id === id);
-        carrito.push(itemEncontrado);
-        };
-    sessionStorage.setItem("carrito", JSON.stringify(carrito));
-    Toastify({
-        text: `Producto agregado`,
-        duration: 2000,
-        gravity: "bottom", 
-        position: "right", 
-        stopOnFocus: true, 
-        style: {
-        background: "#ffce00",
-        color: "#191919",
-        },
-    }).showToast();
+        Toastify({
+            text: `Debe ingresar al sitio o registrarse para poder comprar`,
+            duration: 2000,
+            gravity: "top", 
+            position: "right", 
+            stopOnFocus: true, 
+            style: {
+            background: "#ffce00",
+            color: "#191919",
+            },
+        }).showToast();
+    }
 };
 
 // funcion para quitar del carrito
@@ -93,7 +107,7 @@ const quitarDelCarrito = (id) => {
                 position: "right", 
                 stopOnFocus: true, 
                 style: {
-                background: "#ffce00",
+                background: "#ff4500",
                 color: "#191919",
                 },
             }).showToast();
