@@ -10,12 +10,24 @@ carrito = (sessionStorage.getItem('carrito')) ? JSON.parse(sessionStorage.getIte
 // let computadora = {id:2, nombre:"cpu", caracteristicas:"PC Gamer", precio:250000, cantidad:1, imagen:"./imagenes/computadora.png"};
 // let homeT = {id:3, nombre:"hthea", caracteristicas:"Home Theater", precio:115000, cantidad:1, imagen:"./imagenes/homeT.jpg"};
 // let consola  = {id:4, nombre:"consola", caracteristicas:"Play Station 5", precio:320000, cantidad:1, imagen:"./imagenes/play5.webp"};
-let listaDeProductos = [
-    {id:1, nombre:"tv", caracteristicas:"TV 4K 60'", precio:125000, cantidad:1, imagen:"./imagenes/tv.png"},
-    {id:2, nombre:"cpu", caracteristicas:"PC Gamer", precio:250000, cantidad:1, imagen:"./imagenes/computadora.png"},
-    {id:3, nombre:"hthea", caracteristicas:"Home Theater", precio:115000, cantidad:1, imagen:"./imagenes/homeT.jpg"},
-    {id:4, nombre:"consola", caracteristicas:"Play Station 5", precio:320000, cantidad:1, imagen:"./imagenes/play5.webp"},
-];
+var listaDeProductos =[];
+fetch("./data.json")
+    .then((response) => response.json())
+    .then((data) =>
+        data.forEach((producto) => {
+            listaDeProductos.push(JSON.stringify(producto));    
+        })
+    );
+console.log(listaDeProductos);
+
+
+    
+// let listaDeProductos = [
+//     {id:1, nombre:"tv", caracteristicas:"TV 4K 60'", precio:125000, cantidad:1, imagen:"./imagenes/tv.png"},
+//     {id:2, nombre:"cpu", caracteristicas:"PC Gamer", precio:250000, cantidad:1, imagen:"./imagenes/computadora.png"},
+//     {id:3, nombre:"hthea", caracteristicas:"Home Theater", precio:115000, cantidad:1, imagen:"./imagenes/homeT.jpg"},
+//     {id:4, nombre:"consola", caracteristicas:"Play Station 5", precio:320000, cantidad:1, imagen:"./imagenes/play5.webp"},
+// ];
 // traer el contenedor del index donde iran las tarjetas
 let tarjetasProductos = document.getElementById("tarjetasProductos");
 // crear cada tarjeta
